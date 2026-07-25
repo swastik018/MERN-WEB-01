@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMW | The Next Drive — Explore the Latest Lineup</title>
+<link rel="stylesheet" href="common.css">
+<link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+<canvas id="particle-canvas"></canvas>
+
+<!-- ================= NAV ================= -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand hoverable">
+      <svg class="brand-badge" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="22" stroke="#3d8bff" stroke-width="1.4"/>
+        <path d="M24 2 A22 22 0 0 1 24 46 Z" fill="#0b1a30"/>
+        <path d="M24 2 A22 22 0 0 0 24 46 Z" fill="#12151a"/>
+        <circle cx="24" cy="24" r="22" stroke="url(#g)" stroke-width="1"/>
+        <text x="24" y="29" text-anchor="middle" font-family="Rajdhani" font-weight="700" font-size="17" fill="#f3f3f5">BW</text>
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="48" y2="48">
+            <stop offset="0" stop-color="#0066b1"/>
+            <stop offset=".5" stop-color="#00a0e1"/>
+            <stop offset="1" stop-color="#e2231a"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span class="brand-word">BAVARIA<span>MOTOR</span></span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="models.html">Lineup</a></li>
+      <li><a href="index.html#performance">Performance</a></li>
+      <li><a href="index.html#philosophy">Philosophy</a></li>
+    </ul>
+
+    <a href="purchase.html" class="nav-cta hoverable">Configure &amp; Buy</a>
+    <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mobile-drawer">
+  <a href="index.html">Home</a>
+  <a href="models.html">Lineup</a>
+  <a href="index.html#performance">Performance</a>
+  <a href="purchase.html">Configure &amp; Buy</a>
+</div>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="container hero-inner">
+    <p class="eyebrow reveal-fade">MODEL YEAR 2026 · NOW ARRIVING</p>
+    <h1 class="hero-title">
+      <span class="line reveal-up" style="transition-delay:.05s">Precision built.</span>
+      <span class="line reveal-up" style="transition-delay:.18s">Pure adrenaline.</span>
+    </h1>
+    <p class="hero-sub reveal-up" style="transition-delay:.3s">
+      The latest BMW lineup has landed — from the electric silence of the i-Series
+      to the roar of the M line. Configure yours and drive it home this month.
+    </p>
+    <div class="hero-cta reveal-up" style="transition-delay:.42s">
+      <a href="models.html" class="btn btn-primary hoverable">
+        Explore the Lineup <span class="btn-arrow">→</span>
+      </a>
+      <a href="purchase.html" class="btn btn-ghost hoverable">Start Purchase</a>
+    </div>
+  </div>
+
+  <div class="hero-car reveal-scale" style="transition-delay:.2s">
+    <svg viewBox="0 0 900 340" class="car-svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#2b2f38"/>
+          <stop offset="1" stop-color="#0d0e11"/>
+        </linearGradient>
+        <linearGradient id="glassGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#3d8bff" stop-opacity=".55"/>
+          <stop offset="1" stop-color="#0b1a30" stop-opacity=".85"/>
+        </linearGradient>
+      </defs>
+      <ellipse cx="450" cy="308" rx="360" ry="18" fill="#000" opacity=".55"/>
+      <path d="M60 230 C90 150 190 120 260 118 L340 90 C420 68 560 68 640 92 L720 122 C800 128 840 170 850 216 L850 240 L60 240 Z" fill="url(#bodyGrad)" stroke="#3a3d45" stroke-width="2"/>
+      <path d="M300 118 L360 96 C420 78 540 78 600 98 L660 122 Z" fill="url(#glassGrad)"/>
+      <line x1="470" y1="86" x2="470" y2="122" stroke="#111318" stroke-width="4"/>
+      <circle cx="210" cy="240" r="52" fill="#0a0a0c" stroke="#3a3d45" stroke-width="3"/>
+      <circle cx="210" cy="240" r="24" fill="#1c1f26" stroke="#3d8bff" stroke-width="2"/>
+      <circle cx="690" cy="240" r="52" fill="#0a0a0c" stroke="#3a3d45" stroke-width="3"/>
+      <circle cx="690" cy="240" r="24" fill="#1c1f26" stroke="#3d8bff" stroke-width="2"/>
+      <path d="M60 200 L110 196 L108 214 L60 216 Z" fill="#eef4ff" opacity=".9" class="headlight"/>
+      <path d="M840 210 L850 210 L850 226 L840 226 Z" fill="#e2231a" opacity=".85" class="taillight"/>
+      <rect x="150" y="150" width="180" height="6" rx="3" fill="#0066b1" opacity=".5"/>
+      <rect x="150" y="160" width="180" height="4" rx="2" fill="#00a0e1" opacity=".4"/>
+    </svg>
+    <div class="ground-glow"></div>
+  </div>
+
+  <div class="scroll-cue reveal-fade" style="transition-delay:.6s">
+    <span>Scroll</span>
+    <div class="scroll-cue-line"></div>
+  </div>
+</header>
+
+<div class="m-stripe reveal"></div>
+
+<!-- ================= MARQUEE ================= -->
+<section class="marquee-strip">
+  <div class="marquee-track">
+    <span>ALL-ELECTRIC i-SERIES</span><span>·</span>
+    <span>M PERFORMANCE</span><span>·</span>
+    <span>xDRIVE ALL-WHEEL CONTROL</span><span>·</span>
+    <span>ADAPTIVE M SUSPENSION</span><span>·</span>
+    <span>LASERLIGHT TECHNOLOGY</span><span>·</span>
+    <span>ALL-ELECTRIC i-SERIES</span><span>·</span>
+    <span>M PERFORMANCE</span><span>·</span>
+    <span>xDRIVE ALL-WHEEL CONTROL</span><span>·</span>
+    <span>ADAPTIVE M SUSPENSION</span><span>·</span>
+    <span>LASERLIGHT TECHNOLOGY</span><span>·</span>
+  </div>
+</section>
+
+<!-- ================= LINEUP PREVIEW ================= -->
+<section class="lineup-preview container" id="lineup">
+  <div class="section-head reveal-up">
+    <p class="eyebrow">The Lineup</p>
+    <h2>Three roads. One badge.</h2>
+  </div>
+
+  <div class="preview-grid stagger">
+    <article class="preview-card stagger-item reveal-up hoverable">
+      <div class="preview-card-glow"></div>
+      <span class="preview-tag">Electric</span>
+      <h3>i-Series</h3>
+      <p>Instant torque, near-silent cabins, and up to 340 miles of range on a single charge.</p>
+      <a href="models.html#electric" class="preview-link">View Electric Range →</a>
+    </article>
+
+    <article class="preview-card stagger-item reveal-up hoverable">
+      <div class="preview-card-glow"></div>
+      <span class="preview-tag">Performance</span>
+      <h3>M Series</h3>
+      <p>Track-tuned chassis, twin-turbo power, and the tri-colour stripe that started it all.</p>
+      <a href="models.html#m-series" class="preview-link">View M Series →</a>
+    </article>
+
+    <article class="preview-card stagger-item reveal-up hoverable">
+      <div class="preview-card-glow"></div>
+      <span class="preview-tag">Everyday Luxury</span>
+      <h3>Sedans &amp; SUVs</h3>
+      <p>The 3, 5, 7 and X-Series — refined daily drivers with flagship comfort tech.</p>
+      <a href="models.html#sedans" class="preview-link">View Sedans &amp; SUVs →</a>
+    </article>
+  </div>
+</section>
+
+<!-- ================= PERFORMANCE HUD ================= -->
+<section class="performance-hud" id="performance">
+  <div class="container">
+    <div class="section-head reveal-up light">
+      <p class="eyebrow">By The Numbers</p>
+      <h2>Engineered past the spec sheet.</h2>
+    </div>
+
+    <div class="hud-grid stagger">
+      <div class="hud-stat stagger-item reveal-up">
+        <span class="hud-value" data-count="3.0" data-decimals="1" data-suffix="s">0</span>
+        <span class="hud-label">0–60 mph, M Series</span>
+      </div>
+      <div class="hud-stat stagger-item reveal-up">
+        <span class="hud-value" data-count="340" data-suffix=" mi">0</span>
+        <span class="hud-label">Max range, i-Series</span>
+      </div>
+      <div class="hud-stat stagger-item reveal-up">
+        <span class="hud-value" data-count="617" data-suffix=" hp">0</span>
+        <span class="hud-label">Peak output, M5</span>
+      </div>
+      <div class="hud-stat stagger-item reveal-up">
+        <span class="hud-value" data-count="50" data-suffix="/50">0</span>
+        <span class="hud-label">Weight distribution</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PHILOSOPHY ================= -->
+<section class="philosophy container" id="philosophy">
+  <div class="philosophy-grid">
+    <div class="philosophy-visual reveal-scale">
+      <div class="stripe-ring">
+        <div class="stripe-ring-arc"></div>
+      </div>
+    </div>
+    <div class="philosophy-copy reveal-up">
+      <p class="eyebrow">Sheer Driving Pleasure</p>
+      <h2>Every curve has a reason. Every line has a purpose.</h2>
+      <p class="philosophy-text">
+        For over a century the badge has stood for one idea: the car should
+        disappear beneath you, leaving only the road and the reflex. That
+        philosophy still drives every panel gap, every gearing ratio, every
+        millisecond shaved off a launch.
+      </p>
+      <a href="purchase.html" class="btn btn-primary hoverable">Reserve Yours <span class="btn-arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<div class="m-stripe"></div>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-col footer-brand">
+        <a href="index.html" class="brand hoverable">
+          <svg class="brand-badge" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="22" stroke="#3d8bff" stroke-width="1.4"/>
+            <path d="M24 2 A22 22 0 0 1 24 46 Z" fill="#0b1a30"/>
+            <path d="M24 2 A22 22 0 0 0 24 46 Z" fill="#12151a"/>
+            <text x="24" y="29" text-anchor="middle" font-family="Rajdhani" font-weight="700" font-size="17" fill="#f3f3f5">BW</text>
+          </svg>
+          <span class="brand-word">BAVARIA<span>MOTOR</span></span>
+        </a>
+        <p>An independent showcase concept for the latest BMW-inspired lineup. Not affiliated with BMW AG.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Lineup</h4>
+        <ul>
+          <li><a href="models.html#electric">i-Series</a></li>
+          <li><a href="models.html#m-series">M Series</a></li>
+          <li><a href="models.html#sedans">Sedans &amp; SUVs</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Ownership</h4>
+        <ul>
+          <li><a href="purchase.html">Configure &amp; Buy</a></li>
+          <li><a href="purchase.html">Financing</a></li>
+          <li><a href="purchase.html">Trade-in</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="index.html#philosophy">Philosophy</a></li>
+          <li><a href="index.html#performance">Performance</a></li>
+          <li><a href="models.html">Showroom</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Bavaria Motor Showcase. Concept site for demonstration only.</span>
+      <span>Made for the road ahead.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="common.js"></script>
+<script src="index.js"></script>
+</body>
+</html>

@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMW | The Next Drive — Explore the Latest Lineup</title>
+<link rel="stylesheet" href="structure01.css">
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+<canvas id="particle-canvas"></canvas>
+
+<!-- ================= SHARED NAV ================= -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand hoverable">
+      <svg class="brand-badge" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="22" stroke="#3d8bff" stroke-width="1.4"/>
+        <path d="M24 2 A22 22 0 0 1 24 46 Z" fill="#0b1a30"/>
+        <path d="M24 2 A22 22 0 0 0 24 46 Z" fill="#12151a"/>
+        <circle cx="24" cy="24" r="22" stroke="url(#g)" stroke-width="1"/>
+        <text x="24" y="29" text-anchor="middle" font-family="Rajdhani" font-weight="700" font-size="17" fill="#f3f3f5">BW</text>
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="48" y2="48">
+            <stop offset="0" stop-color="#0066b1"/>
+            <stop offset=".5" stop-color="#00a0e1"/>
+            <stop offset="1" stop-color="#e2231a"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span class="brand-word">BAVARIA<span>MOTOR</span></span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#lineup">Lineup</a></li>
+      <li><a href="#performance">Performance</a></li>
+      <li><a href="#philosophy">Philosophy</a></li>
+    </ul>
+
+    <a href="#purchase" class="nav-cta hoverable">Configure &amp; Buy</a>
+    <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mobile-drawer">
+  <a href="#home">Home</a>
+  <a href="#lineup">Lineup</a>
+  <a href="#performance">Performance</a>
+  <a href="#purchase">Configure &amp; Buy</a>
+</div>
+
+<!-- ================= INDEX HERO ================= -->
+<header class="hero" id="home">
+  <div class="hero-bg-grid"></div>
+  <div class="container hero-inner">
+    <p class="eyebrow reveal-fade">MODEL YEAR 2026 · NOW ARRIVING</p>
+    <h1 class="hero-title">
+      <span class="line reveal-up" style="transition-delay:.05s">Precision built.</span>
+      <span class="line reveal-up" style="transition-delay:.18s">Pure adrenaline.</span>
+    </h1>
+    <p class="hero-sub reveal-up" style="transition-delay:.3s">
+      The latest BMW lineup has landed — from the electric silence of the i-Series
+      to the roar of the M line. Configure yours and drive it home this month.
+    </p>
+    <div class="hero-cta reveal-up" style="transition-delay:.42s">
+      <a href="#lineup" class="btn btn-primary hoverable">
+        Explore the Lineup <span class="btn-arrow">→</span>
+      </a>
+      <a href="#purchase" class="btn btn-ghost hoverable">Start Purchase</a>
+    </div>
+
+    <!-- Active Inquiries EJS Structure consistent with BMW Showcase -->
+    <div class="order-details-card <%= registerdOrders.length === 0 ? 'empty-orders' : '' %>">
+      <div class="order-details-header">
+        <span class="order-icon">📋</span>
+        <h2 class="order-title">Active Inquiries</h2>
+      </div>
+      <% if (registerdOrders && registerdOrders.length > 0) { %>
+      <ul class="order-list">
+        <% registerdOrders.forEach((orders, index) => { %>
+        <li class="order-item">
+          <div class="order-item-badge">#<%= index + 1 %></div>
+          <% let details = orders.OrderDetails; if (details && (details.includes(' | ') || details.includes(' , '))) { 
+            let name = '', model = '', email = '', payment = '';
+            if (details.includes(' | ')) {
+              let parts = details.split(' | ');
+              name = parts[0] ? parts[0].replace('Name: ', '').replace('FirstName: ', '') : '';
+              model = parts[1] ? parts[1].replace('Model: ', '') : '';
+              email = parts[2] ? parts[2].replace('Email: ', '').replace('EmailAddress: ', '') : '';
+              payment = parts[3] ? parts[3].replace('Payment: ', '') : '';
+            } else {
+              let parts = details.split(' , ');
+              name = (parts[0] || '').replace('FirstName : ', '') + ' ' + (parts[1] || '').replace('LastName : ', '');
+              email = (parts[2] || '').replace('EmailAddress : ', '');
+              model = (parts[3] || '').replace('Model : ', '');
+            }
+          %>
+          <div class="order-card-detail">
+            <div class="order-row">
+              <strong>👤 Customer</strong> <span><%= name %></span>
+            </div>
+            <div class="order-row">
+              <strong>🏎️ Model</strong>
+              <span class="dish-highlight"><%= model %></span>
+            </div>
+            <div class="order-row">
+              <strong>✉️ Email</strong>
+              <span><%= email %></span>
+            </div>
+            <% if (payment) { %>
+            <div class="order-row">
+              <strong>💳 Payment</strong> <span><%= payment %></span>
+            </div>
+            <% } %>
+          </div>
+          <% } else { %>
+          <div class="order-card-detail">
+            <div class="order-row"><span><%= details %></span></div>
+          </div>
+          <% } %>
+        </li>
+        <% }) %>
+      </ul>
+      <% } else { %>
+      <div class="no-orders">
+        <div class="no-orders-emoji">🚗</div>
+        <p>No active inquiries yet.</p>
+        <p class="no-orders-sub">Ready for a drive? Configure your BMW below!</p>
+      </div>
+      <% } %>
+    </div>
+  </div>
+
+  <div class="hero-car reveal-scale" style="transition-delay:.2s">
+    <svg viewBox="0 0 900 340" class="car-svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#2b2f38"/>
+          <stop offset="1" stop-color="#0d0e11"/>
+        </linearGradient>
+        <linearGradient id="glassGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#3d8bff" stop-opacity=".55"/>
+          <stop offset="1" stop-color="#0b1a30" stop-opacity=".85"/>
+        </linearGradient>
+      </defs>
+      <ellipse cx="450" cy="308" rx="360" ry="18" fill="#000" opacity=".55"/>
+      <path d="M60 230 C90 150 190 120 260 118 L340 90 C420 68 560 68 640 92 L720 122 C800 128 840 170 850 216 L850 240 L60 240 Z" fill="url(#bodyGrad)" stroke="#3a3d45" stroke-width="2"/>
+      <path d="M300 118 L360 96 C420 78 540 78 600 98 L660 122 Z" fill="url(#glassGrad)"/>
+      <line x1="470" y1="86" x2="470" y2="122" stroke="#111318" stroke-width="4"/>
+      <circle cx="210" cy="240" r="52" fill="#0a0a0c" stroke="#3a3d45" stroke-width="3"/>
+      <circle cx="210" cy="240" r="24" fill="#1c1f26" stroke="#3d8bff" stroke-width="2"/>
+      <circle cx="690" cy="240" r="52" fill="#0a0a0c" stroke="#3a3d45" stroke-width="3"/>
+      <circle cx="690" cy="240" r="24" fill="#1c1f26" stroke="#3d8bff" stroke-width="2"/>
+      <path d="M60 200 L110 196 L108 214 L60 216 Z" fill="#eef4ff" opacity=".9" class="headlight"/>
+      <path d="M840 210 L850 210 L850 226 L840 226 Z" fill="#e2231a" opacity=".85" class="taillight"/>
+      <rect x="150" y="150" width="180" height="6" rx="3" fill="#0066b1" opacity=".5"/>
+      <rect x="150" y="160" width="180" height="4" rx="2" fill="#00a0e1" opacity=".4"/>
+    </svg>
+    <div class="ground-glow"></div>
+  </div>
+
+  <div class="scroll-cue reveal-fade" style="transition-delay:.6s">
+    <span>Scroll</span>
+    <div class="scroll-cue-line"></div>
+  </div>
+</header>
+
+<div class="m-stripe reveal"></div>
+
+<!-- ================= MARQUEE ================= -->
+<section class="marquee-strip">
+  <div class="marquee-track">
+    <span>ALL-ELECTRIC i-SERIES</span><span>·</span>
+    <span>M PERFORMANCE</span><span>·</span>
+    <span>xDRIVE ALL-WHEEL CONTROL</span><span>·</span>
+    <span>ADAPTIVE M SUSPENSION</span><span>·</span>
+    <span>LASERLIGHT TECHNOLOGY</span><span>·</span>
+    <span>ALL-ELECTRIC i-SERIES</span><span>·</span>
+    <span>M PERFORMANCE</span><span>·</span>
+    <span>xDRIVE ALL-WHEEL CONTROL</span><span>·</span>
+    <span>ADAPTIVE M SUSPENSION</span><span>·</span>
+    <span>LASERLIGHT TECHNOLOGY</span><span>·</span>
+  </div>
+</section>
+
+<!-- ================= PERFORMANCE HUD ================= -->
+<section class="performance-hud" id="performance">
+  <div class="container">
+    <div class="section-head reveal-up light">
+      <p class="eyebrow">By The Numbers</p>
+      <h2>Engineered past the spec sheet.</h2>
+    </div>
+
+    <div class="hud-grid stagger">
+      <div class="hud-stat stagger-item reveal-up">
+        <span class="hud-value" data-count="3.0" data-decimals="1" data-suffix="s">0</span>
+        <span class="hud-label">0–60 mph, M Series</span>
+      </div>
+      <div class="hud-stat stagger-item reveal-up">
+        <span class="hud-value" data-count="340" data-suffix=" mi">0</span>
+        <span class="hud-label">Max range, i-Series</span>
+      </div>
+      <div class="hud-stat stagger-item reveal-up">
+        <span class="hud-value" data-count="617" data-suffix=" hp">0</span>
+        <span class="hud-label">Peak output, M5</span>
+      </div>
+      <div class="hud-stat stagger-item reveal-up">
+        <span class="hud-value" data-count="50" data-suffix="/50">0</span>
+        <span class="hud-label">Weight distribution</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PHILOSOPHY ================= -->
+<section class="philosophy container" id="philosophy">
+  <div class="philosophy-grid">
+    <div class="philosophy-visual reveal-scale">
+      <div class="stripe-ring">
+        <div class="stripe-ring-arc"></div>
+      </div>
+    </div>
+    <div class="philosophy-copy reveal-up">
+      <p class="eyebrow">Sheer Driving Pleasure</p>
+      <h2>Every curve has a reason. Every line has a purpose.</h2>
+      <p class="philosophy-text">
+        For over a century the badge has stood for one idea: the car should
+        disappear beneath you, leaving only the road and the reflex. That
+        philosophy still drives every panel gap, every gearing ratio, every
+        millisecond shaved off a launch.
+      </p>
+      <a href="#purchase" class="btn btn-primary hoverable">Reserve Yours <span class="btn-arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<div class="m-stripe"></div>
+
+<!-- ================= MODELS PAGE HERO ================= -->
+<header class="page-hero" id="showroom">
+  <div class="container">
+    <p class="eyebrow reveal-fade">The Showroom</p>
+    <h1 class="reveal-up">Find the car that finds you.</h1>
+    <p class="page-hero-sub reveal-up" style="transition-delay:.12s">
+      Six configurations. Three philosophies. One badge. Filter the lineup
+      below, then carry your pick straight into a configuration &amp; purchase form.
+    </p>
+  </div>
+</header>
+
+<div class="m-stripe reveal"></div>
+
+<!-- ================= FILTERS ================= -->
+<section class="filter-bar container" id="lineup">
+  <div class="filter-tabs" role="tablist">
+    <button class="filter-tab active hoverable" data-filter="all">All Models</button>
+    <button class="filter-tab hoverable" data-filter="electric">Electric</button>
+    <button class="filter-tab hoverable" data-filter="m-series">M Series</button>
+    <button class="filter-tab hoverable" data-filter="sedans">Sedans &amp; SUVs</button>
+  </div>
+  <span class="filter-count"><span id="result-count">6</span> models</span>
+</section>
+
+<!-- ================= GRID ================= -->
+<section class="models-grid-section container">
+  <div class="models-grid stagger" id="models-grid">
+
+    <article class="car-card stagger-item reveal-up" data-cat="electric" id="electric">
+      <div class="car-card-media">
+        <svg viewBox="0 0 400 200" class="mini-car"><use href="#car-shape-electric"/></svg>
+        <span class="card-badge">All-Electric</span>
+      </div>
+      <div class="car-card-body">
+        <div class="car-card-head">
+          <h3>i4 Gran Coupé</h3>
+          <span class="car-price">from $52,200</span>
+        </div>
+        <p class="car-desc">A four-door electric fastback with instant torque and a whisper-quiet cabin.</p>
+        <ul class="spec-row">
+          <li><b>335</b><span>hp</span></li>
+          <li><b>301</b><span>mi range</span></li>
+          <li><b>5.5s</b><span>0–60</span></li>
+        </ul>
+        <a href="#purchase" class="btn btn-ghost hoverable full">Configure &amp; Purchase</a>
+      </div>
+    </article>
+
+    <article class="car-card stagger-item reveal-up" data-cat="electric">
+      <div class="car-card-media">
+        <svg viewBox="0 0 400 200" class="mini-car"><use href="#car-shape-suv-electric"/></svg>
+        <span class="card-badge">All-Electric</span>
+      </div>
+      <div class="car-card-body">
+        <div class="car-card-head">
+          <h3>iX xDrive50</h3>
+          <span class="car-price">from $71,300</span>
+        </div>
+        <p class="car-desc">Flagship electric SUV — 340 miles of range wrapped in a lounge-like cabin.</p>
+        <ul class="spec-row">
+          <li><b>516</b><span>hp</span></li>
+          <li><b>340</b><span>mi range</span></li>
+          <li><b>4.4s</b><span>0–60</span></li>
+        </ul>
+        <a href="#purchase" class="btn btn-ghost hoverable full">Configure &amp; Purchase</a>
+      </div>
+    </article>
+
+    <article class="car-card stagger-item reveal-up" data-cat="m-series" id="m-series">
+      <div class="car-card-media m-tint">
+        <svg viewBox="0 0 400 200" class="mini-car"><use href="#car-shape-m"/></svg>
+        <span class="card-badge m">M Performance</span>
+      </div>
+      <div class="car-card-body">
+        <div class="car-card-head">
+          <h3>M3 Competition</h3>
+          <span class="car-price">from $76,900</span>
+        </div>
+        <p class="car-desc">Twin-turbo inline-six, track-tuned chassis, and the tri-colour stripe.</p>
+        <ul class="spec-row">
+          <li><b>503</b><span>hp</span></li>
+          <li><b>3.8s</b><span>0–60</span></li>
+          <li><b>180</b><span>mph top</span></li>
+        </ul>
+        <a href="#purchase" class="btn btn-ghost hoverable full">Configure &amp; Purchase</a>
+      </div>
+    </article>
+
+    <article class="car-card stagger-item reveal-up" data-cat="m-series">
+      <div class="car-card-media m-tint">
+        <svg viewBox="0 0 400 200" class="mini-car"><use href="#car-shape-m-sedan"/></svg>
+        <span class="card-badge m">M Performance</span>
+      </div>
+      <div class="car-card-body">
+        <div class="car-card-head">
+          <h3>M5</h3>
+          <span class="car-price">from $110,900</span>
+        </div>
+        <p class="car-desc">A 617-horsepower executive sedan that still knows how to disappear on the school run.</p>
+        <ul class="spec-row">
+          <li><b>617</b><span>hp</span></li>
+          <li><b>3.0s</b><span>0–60</span></li>
+          <li><b>190</b><span>mph top</span></li>
+        </ul>
+        <a href="#purchase" class="btn btn-ghost hoverable full">Configure &amp; Purchase</a>
+      </div>
+    </article>
+
+    <article class="car-card stagger-item reveal-up" data-cat="sedans" id="sedans">
+      <div class="car-card-media">
+        <svg viewBox="0 0 400 200" class="mini-car"><use href="#car-shape-sedan"/></svg>
+        <span class="card-badge">Executive Sedan</span>
+      </div>
+      <div class="car-card-body">
+        <div class="car-card-head">
+          <h3>3 Series</h3>
+          <span class="car-price">from $44,500</span>
+        </div>
+        <p class="car-desc">The benchmark sports sedan — balanced, sharp, and endlessly composed.</p>
+        <ul class="spec-row">
+          <li><b>255</b><span>hp</span></li>
+          <li><b>5.6s</b><span>0–60</span></li>
+          <li><b>50/50</b><span>balance</span></li>
+        </ul>
+        <a href="#purchase" class="btn btn-ghost hoverable full">Configure &amp; Purchase</a>
+      </div>
+    </article>
+
+    <article class="car-card stagger-item reveal-up" data-cat="sedans">
+      <div class="car-card-media">
+        <svg viewBox="0 0 400 200" class="mini-car"><use href="#car-shape-suv"/></svg>
+        <span class="card-badge">Luxury SUV</span>
+      </div>
+      <div class="car-card-body">
+        <div class="car-card-head">
+          <h3>X5</h3>
+          <span class="car-price">from $65,800</span>
+        </div>
+        <p class="car-desc">Three rows of composure with the road manners of a much smaller car.</p>
+        <ul class="spec-row">
+          <li><b>375</b><span>hp</span></li>
+          <li><b>5.3s</b><span>0–60</span></li>
+          <li><b>7</b><span>seats</span></li>
+        </ul>
+        <a href="#purchase" class="btn btn-ghost hoverable full">Configure &amp; Purchase</a>
+      </div>
+    </article>
+
+  </div>
+
+  <p class="no-results" id="no-results" hidden>No models match this filter yet — check back soon.</p>
+</section>
+
+<!-- Reusable car silhouette shapes, referenced via <use> above -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <g id="car-shape-electric">
+      <path d="M30 140 C45 95 100 78 140 76 L180 60 C225 48 300 48 340 64 L370 82 C385 100 388 128 388 140 L30 140Z" fill="#1c1f26" stroke="#3d8bff" stroke-width="2"/>
+      <path d="M165 76 L195 64 C225 54 285 54 315 66 L340 82 Z" fill="#3d8bff" opacity=".35"/>
+      <circle cx="105" cy="140" r="26" fill="#0a0a0c" stroke="#3a3d45" stroke-width="3"/>
+      <circle cx="105" cy="140" r="11" fill="#00a0e1"/>
+      <circle cx="330" cy="140" r="26" fill="#0a0a0c" stroke="#3a3d45" stroke-width="3"/>
+      <circle cx="330" cy="140" r="11" fill="#00a0e1"/>
+      <rect x="60" y="100" width="70" height="4" fill="#00a0e1" opacity=".6"/>
+    </g>
+    <g id="car-shape-suv-electric">
+      <path d="M25 145 C35 90 95 70 150 68 L195 52 C245 40 310 44 350 62 L380 90 C392 108 392 130 392 145 L25 145Z" fill="#1c1f26" stroke="#3d8bff" stroke-width="2"/>
+      <path d="M175 68 L210 54 C250 46 295 48 330 64 L352 88 Z" fill="#3d8bff" opacity=".35"/>
+      <circle cx="105" cy="145" r="28" fill="#0a0a0c" stroke="#3a3d45" stroke-width="3"/>
+      <circle cx="105" cy="145" r="12" fill="#00a0e1"/>
+      <circle cx="330" cy="145" r="28" fill="#0a0a0c" stroke="#3a3d45" stroke-width="3"/>
+      <circle cx="330" cy="145" r="12" fill="#00a0e1"/>
+    </g>
+    <g id="car-shape-m">
+      <path d="M30 140 C42 92 95 74 135 72 L172 56 C210 44 270 44 305 58 L340 78 C365 96 372 120 372 140 L30 140Z" fill="#1c1f26" stroke="#e2231a" stroke-width="2"/>
+      <path d="M158 72 L185 58 C215 48 260 48 292 60 L318 78 Z" fill="#00a0e1" opacity=".4"/>
+      <rect x="70" y="100" width="140" height="5" fill="#0066b1"/>
+      <rect x="70" y="107" width="140" height="4" fill="#00a0e1"/>
+      <rect x="70" y="113" width="140" height="4" fill="#e2231a"/>
+      <circle cx="100" cy="140" r="27" fill="#0a0a0c" stroke="#3a3d45" stroke-width="3"/>
+      <circle cx="100" cy="140" r="12" fill="#e2231a"/>
+      <circle cx="315" cy="140" r="27" fill="#0a0a0c" stroke="#3a3d45" stroke-width="3"/>
+      <circle cx="315" cy="140" r="12" fill="#e2231a"/>
+    </g>
+    <g id="car-shape-m-sedan">
+      <path d="M22 142 C36 96 88 76 130 74 L168 56 C212 42 285 44 325 60 L365 84 C382 102 385 126 385 142 L22 142Z" fill="#1c1f26" stroke="#e2231a" stroke-width="2"/>
+      <path d="M152 74 L182 58 C220 46 275 48 312 62 L342 84 Z" fill="#00a0e1" opacity=".4"/>
+      <rect x="60" y="102" width="150" height="5" fill="#0066b1"/>
+      <rect x="60" y="109" width="150" height="4" fill="#00a0e1"/>
+      <rect x="60" y="115" width="150" height="4" fill="#e2231a"/>
+      <circle cx="98" cy="142" r="27" fill="#0a0a0c" stroke="#3a3d45" stroke-width="3"/>
+      <circle cx="98" cy="142" r="12" fill="#e2231a"/>
+      <circle cx="330" cy="142" r="27" fill="#0a0a0c" stroke="#3a3d45" stroke-width="3"/>
+      <circle cx="330" cy="142" r="12" fill="#e2231a"/>
+    </g>
+    <g id="car-shape-sedan">
+      <path d="M26 142 C40 98 92 78 132 76 L170 58 C212 46 280 48 318 62 L356 86 C374 104 378 126 378 142 L26 142Z" fill="#1c1f26" stroke="#3a3d45" stroke-width="2"/>
+      <path d="M155 76 L184 60 C220 50 270 50 305 64 L334 86 Z" fill="#3d8bff" opacity=".3"/>
+      <circle cx="102" cy="142" r="27" fill="#0a0a0c" stroke="#3a3d45" stroke-width="3"/>
+      <circle cx="102" cy="142" r="12" fill="#8a8d93"/>
+      <circle cx="322" cy="142" r="27" fill="#0a0a0c" stroke="#3a3d45" stroke-width="3"/>
+      <circle cx="322" cy="142" r="12" fill="#8a8d93"/>
+    </g>
+    <g id="car-shape-suv">
+      <path d="M20 146 C30 92 88 72 145 70 L190 54 C240 42 305 46 345 64 L378 92 C390 110 390 130 390 146 L20 146Z" fill="#1c1f26" stroke="#3a3d45" stroke-width="2"/>
+      <path d="M168 70 L204 56 C244 48 288 50 322 66 L346 90 Z" fill="#3d8bff" opacity=".3"/>
+      <circle cx="103" cy="146" r="28" fill="#0a0a0c" stroke="#3a3d45" stroke-width="3"/>
+      <circle cx="103" cy="146" r="12" fill="#8a8d93"/>
+      <circle cx="328" cy="146" r="28" fill="#0a0a0c" stroke="#3a3d45" stroke-width="3"/>
+      <circle cx="328" cy="146" r="12" fill="#8a8d93"/>
+    </g>
+  </defs>
+</svg>
+
+<div class="m-stripe"></div>
+
+<!-- ================= PURCHASE FORM ================= -->
+<section class="form-section container" id="purchase">
+  <header class="step-head">
+    <p class="eyebrow">Ownership</p>
+    <h2>Configure &amp; Buy</h2>
+    <p class="page-hero-sub">Complete your purchase details below.</p>
+  </header>
+
+  <div class="progress-track">
+    <div class="progress-step active">
+      <div class="progress-index">1</div>
+      <span class="progress-label">Vehicle</span>
+    </div>
+    <div class="progress-step">
+      <div class="progress-index">2</div>
+      <span class="progress-label">Details</span>
+    </div>
+    <div class="progress-step">
+      <div class="progress-index">3</div>
+      <span class="progress-label">Payment</span>
+    </div>
+  </div>
+  <div class="progress-bar-track">
+    <div class="progress-bar-fill" style="width: 33%;"></div>
+  </div>
+
+  <form action="/user-details" method="POST" id="purchase-form">
+    
+    <!-- Step 1: Vehicle -->
+    <fieldset class="form-step active">
+      <div class="step-head">
+        <h2>Select Your Model</h2>
+      </div>
+      <div class="field-grid">
+        <div class="field field-wide">
+          <label for="model">Model</label>
+          <select name="model" id="model">
+            <option value="i4">i4 Gran Coupé</option>
+            <option value="ix">iX xDrive50</option>
+            <option value="m3">M3 Competition</option>
+            <option value="m5">M5</option>
+            <option value="3series">3 Series</option>
+            <option value="x5">X5</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="selected-preview">
+        <p>You have selected a vehicle. Continue to enter your details.</p>
+      </div>
+
+      <div class="step-actions">
+        <div></div> <!-- Spacer -->
+        <button type="button" class="btn btn-primary hoverable" onclick="nextStep(1)">Next <span class="btn-arrow">→</span></button>
+      </div>
+    </fieldset>
+
+    <!-- Step 2: Details -->
+    <fieldset class="form-step">
+      <div class="step-head">
+        <h2>Your Information</h2>
+      </div>
+      <div class="field-grid">
+        <div class="field">
+          <label for="fname">FirstName</label>
+          <input type="text" id="fname" name="fname" placeholder="John" required>
+        </div>
+        <div class="field">
+          <label for="lname">LastName</label>
+          <input type="text" id="lname" name="lname" placeholder="Doe" required>
+        </div>
+        <div class="field field-wide">
+          <label for="email">EmailAddress</label>
+          <input type="email" id="email" name="email" placeholder="Email" required>
+        </div>
+      </div>
+      <div class="step-actions">
+        <button type="button" class="btn btn-ghost hoverable" onclick="prevStep(0)">Back</button>
+        <button type="button" class="btn btn-primary hoverable" onclick="nextStep(2)">Next <span class="btn-arrow">→</span></button>
+      </div>
+    </fieldset>
+
+    <!-- Step 3: Payment & Submit -->
+    <fieldset class="form-step">
+      <div class="step-head">
+        <h2>PaymentMethod</h2>
+      </div>
+      
+      <div class="pay-toggle">
+        <label class="pay-option">
+          <input type="radio" name="payment" value="finance" checked>
+          <span class="pay-option-card hoverable">
+            <span class="pay-option-title">Financing</span>
+            <span class="pay-option-desc">Pay over 36-72 months.</span>
+          </span>
+        </label>
+        <label class="pay-option">
+          <input type="radio" name="payment" value="cash">
+          <span class="pay-option-card hoverable">
+            <span class="pay-option-title">Cash</span>
+            <span class="pay-option-desc">Pay in full today.</span>
+          </span>
+        </label>
+      </div>
+
+      <div class="consent-field checkbox-row">
+        <input type="checkbox" id="consent" name="consent" required class="hoverable">
+        <label for="consent">I agree to the terms of service and acknowledge the privacy policy.</label>
+      </div>
+      
+      <div class="step-actions">
+        <button type="button" class="btn btn-ghost hoverable" onclick="prevStep(1)">Back</button>
+        <button type="submit" class="btn btn-primary hoverable">Submit Form <span class="btn-arrow">→</span></button>
+      </div>
+    </fieldset>
+  </form>
+</section>
+
+<!-- ================= SHARED FOOTER ================= -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-col footer-brand">
+        <a href="#home" class="brand hoverable">
+          <svg class="brand-badge" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="22" stroke="#3d8bff" stroke-width="1.4"/>
+            <path d="M24 2 A22 22 0 0 1 24 46 Z" fill="#0b1a30"/>
+            <path d="M24 2 A22 22 0 0 0 24 46 Z" fill="#12151a"/>
+            <text x="24" y="29" text-anchor="middle" font-family="Rajdhani" font-weight="700" font-size="17" fill="#f3f3f5">BW</text>
+          </svg>
+          <span class="brand-word">BAVARIA<span>MOTOR</span></span>
+        </a>
+        <p>An independent showcase concept for the latest BMW-inspired lineup. Not affiliated with BMW AG.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Lineup</h4>
+        <ul>
+          <li><a href="#electric">i-Series</a></li>
+          <li><a href="#m-series">M Series</a></li>
+          <li><a href="#sedans">Sedans &amp; SUVs</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Ownership</h4>
+        <ul>
+          <li><a href="#purchase">Configure &amp; Buy</a></li>
+          <li><a href="#purchase">Financing</a></li>
+          <li><a href="#purchase">Trade-in</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#philosophy">Philosophy</a></li>
+          <li><a href="#performance">Performance</a></li>
+          <li><a href="#showroom">Showroom</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Bavaria Motor Showcase. Concept site for demonstration only.</span>
+      <span>Made for the road ahead.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="structure01.js"></script>
+</body>
+</html>

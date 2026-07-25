@@ -1,0 +1,149 @@
+/* ==========================================================================
+   MODELS.CSS — showroom / lineup page
+   ========================================================================== */
+
+.page-hero{
+  position:relative;
+  z-index:1;
+  padding:calc(var(--nav-h) + 90px) 0 70px;
+}
+.page-hero h1{
+  font-size:clamp(2.6rem,6vw,4.4rem);
+  margin:16px 0 20px;
+  max-width:760px;
+}
+.page-hero-sub{
+  max-width:560px;
+  color:var(--text-dim);
+  font-size:1.05rem;
+  line-height:1.7;
+}
+
+/* ---------- Filters ---------- */
+.filter-bar{
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:20px;
+  padding:44px 48px 0;
+}
+.filter-tabs{ display:flex; gap:10px; flex-wrap:wrap; }
+.filter-tab{
+  padding:11px 20px;
+  border:1px solid var(--line-strong);
+  border-radius:2px;
+  background:transparent;
+  color:var(--text-dim);
+  font-size:.84rem;
+  font-weight:600;
+  letter-spacing:.02em;
+  transition:all .3s var(--ease-out);
+}
+.filter-tab:hover{ color:var(--text); border-color:var(--m-cyan); }
+.filter-tab.active{
+  background:var(--blue);
+  border-color:var(--blue);
+  color:#fff;
+}
+.filter-count{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.78rem;
+  color:var(--text-faint);
+}
+#result-count{ color:var(--m-cyan); }
+
+/* ---------- Grid ---------- */
+.models-grid-section{ position:relative; z-index:1; padding:50px 48px 140px; }
+.models-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:26px;
+}
+.car-card{
+  border:1px solid var(--line);
+  border-radius:var(--radius-m);
+  background:var(--surface);
+  overflow:hidden;
+  transition:opacity .5s var(--ease-out), transform .5s var(--ease-out), border-color .4s;
+}
+.car-card:hover{ transform:translateY(-8px); border-color:var(--line-strong); }
+.car-card.filtered-out{
+  opacity:0;
+  transform:scale(.9);
+  pointer-events:none;
+  position:absolute;
+  visibility:hidden;
+}
+
+.car-card-media{
+  position:relative;
+  padding:30px 20px 6px;
+  background:radial-gradient(ellipse at 50% 100%, rgba(61,139,255,.14), transparent 70%);
+  border-bottom:1px solid var(--line);
+}
+.car-card-media.m-tint{ background:radial-gradient(ellipse at 50% 100%, rgba(226,35,26,.12), transparent 70%); }
+.mini-car{ width:100%; height:auto; transition:transform .5s var(--ease-out); }
+.car-card:hover .mini-car{ transform:translateX(6px) scale(1.02); }
+
+.card-badge{
+  position:absolute;
+  top:16px; left:16px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.66rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  padding:6px 10px;
+  border:1px solid var(--line-strong);
+  border-radius:2px;
+  background:rgba(8,8,10,.6);
+  color:var(--m-cyan);
+}
+.card-badge.m{ color:var(--m-red); }
+
+.car-card-body{ padding:26px 24px 28px; }
+.car-card-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:10px;
+  margin-bottom:10px;
+}
+.car-card-head h3{ font-size:1.4rem; }
+.car-price{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.76rem;
+  color:var(--text-faint);
+  white-space:nowrap;
+}
+.car-desc{ color:var(--text-dim); font-size:.9rem; line-height:1.6; margin-bottom:20px; min-height:44px; }
+
+.spec-row{
+  display:flex;
+  gap:22px;
+  padding:16px 0;
+  margin-bottom:22px;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.spec-row li{ display:flex; flex-direction:column; gap:4px; }
+.spec-row b{ font-family:'Rajdhani',sans-serif; font-size:1.15rem; font-weight:700; }
+.spec-row span{ font-size:.7rem; color:var(--text-faint); text-transform:uppercase; letter-spacing:.05em; }
+
+.btn.full{ width:100%; justify-content:center; }
+
+.no-results{
+  text-align:center;
+  color:var(--text-dim);
+  padding:80px 0;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.9rem;
+}
+
+@media(max-width:1080px){ .models-grid{ grid-template-columns:repeat(2,1fr); } }
+@media(max-width:700px){
+  .models-grid{ grid-template-columns:1fr; }
+  .filter-bar,.models-grid-section{ padding-left:24px; padding-right:24px; }
+}

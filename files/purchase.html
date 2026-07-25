@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMW | Configure &amp; Purchase</title>
+<link rel="stylesheet" href="common.css">
+<link rel="stylesheet" href="purchase.css">
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+<canvas id="particle-canvas"></canvas>
+
+<!-- ================= NAV ================= -->
+<nav class="site-nav scrolled">
+  <div class="nav-inner">
+    <a href="index.html" class="brand hoverable">
+      <svg class="brand-badge" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="22" stroke="#3d8bff" stroke-width="1.4"/>
+        <path d="M24 2 A22 22 0 0 1 24 46 Z" fill="#0b1a30"/>
+        <path d="M24 2 A22 22 0 0 0 24 46 Z" fill="#12151a"/>
+        <text x="24" y="29" text-anchor="middle" font-family="Rajdhani" font-weight="700" font-size="17" fill="#f3f3f5">BW</text>
+      </svg>
+      <span class="brand-word">BAVARIA<span>MOTOR</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="models.html">Lineup</a></li>
+      <li><a href="index.html#performance">Performance</a></li>
+      <li><a href="index.html#philosophy">Philosophy</a></li>
+    </ul>
+    <a href="purchase.html" class="nav-cta hoverable active">Configure &amp; Buy</a>
+    <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mobile-drawer">
+  <a href="index.html">Home</a>
+  <a href="models.html">Lineup</a>
+  <a href="index.html#performance">Performance</a>
+  <a href="purchase.html">Configure &amp; Buy</a>
+</div>
+
+<!-- ================= PAGE HERO ================= -->
+<header class="page-hero">
+  <div class="container">
+    <p class="eyebrow reveal-fade">Own It</p>
+    <h1 class="reveal-up">Configure &amp; purchase your BMW.</h1>
+    <p class="page-hero-sub reveal-up" style="transition-delay:.12s">
+      Four short steps. Your details, your car, your financing — reviewed
+      once before it's sent to our delivery team.
+    </p>
+  </div>
+</header>
+
+<div class="m-stripe reveal"></div>
+
+<!-- ================= FORM SECTION ================= -->
+<section class="form-section container">
+
+  <!-- Progress -->
+  <ol class="progress-track" id="progress-track">
+    <li class="progress-step active" data-step="1">
+      <span class="progress-index">01</span>
+      <span class="progress-label">Your Details</span>
+    </li>
+    <li class="progress-step" data-step="2">
+      <span class="progress-index">02</span>
+      <span class="progress-label">Vehicle</span>
+    </li>
+    <li class="progress-step" data-step="3">
+      <span class="progress-index">03</span>
+      <span class="progress-label">Financing</span>
+    </li>
+    <li class="progress-step" data-step="4">
+      <span class="progress-index">04</span>
+      <span class="progress-label">Review</span>
+    </li>
+  </ol>
+  <div class="progress-bar-track">
+    <div class="progress-bar-fill" id="progress-fill"></div>
+  </div>
+
+  <form id="purchase-form" class="purchase-form" action="/user-details" method="POST" novalidate>
+
+    <!-- ============ STEP 1 — PERSONAL DETAILS ============ -->
+    <fieldset class="form-step active" data-step="1">
+      <div class="step-head">
+        <p class="eyebrow">Step 01</p>
+        <h2>Tell us who's driving.</h2>
+      </div>
+
+      <div class="field-grid">
+        <div class="field">
+          <label for="full-name">Full name</label>
+          <input type="text" id="full-name" name="full_name" placeholder="e.g. Alex Morgan" required>
+          <span class="field-error">Please enter your full name.</span>
+        </div>
+        <div class="field">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required>
+          <span class="field-error">Enter a valid email address.</span>
+        </div>
+        <div class="field">
+          <label for="phone">Phone number</label>
+          <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" required>
+          <span class="field-error">Please enter a valid phone number.</span>
+        </div>
+        <div class="field">
+          <label for="dob">Date of birth</label>
+          <input type="date" id="dob" name="date_of_birth" required>
+          <span class="field-error">Please enter your date of birth.</span>
+        </div>
+        <div class="field field-wide">
+          <label for="address">Street address</label>
+          <input type="text" id="address" name="address" placeholder="123 Ultimate Drive" required>
+          <span class="field-error">Please enter your street address.</span>
+        </div>
+        <div class="field">
+          <label for="city">City</label>
+          <input type="text" id="city" name="city" placeholder="Bhubaneswar" required>
+          <span class="field-error">Please enter your city.</span>
+        </div>
+        <div class="field">
+          <label for="state">State / Province</label>
+          <input type="text" id="state" name="state" placeholder="Odisha" required>
+          <span class="field-error">Please enter your state or province.</span>
+        </div>
+        <div class="field">
+          <label for="zip">ZIP / Postal code</label>
+          <input type="text" id="zip" name="zip_code" placeholder="751001" required>
+          <span class="field-error">Please enter your postal code.</span>
+        </div>
+        <div class="field">
+          <label for="country">Country</label>
+          <select id="country" name="country" required>
+            <option value="" disabled selected>Select country</option>
+            <option>India</option>
+            <option>United States</option>
+            <option>United Kingdom</option>
+            <option>Germany</option>
+            <option>United Arab Emirates</option>
+            <option>Other</option>
+          </select>
+          <span class="field-error">Please select your country.</span>
+        </div>
+      </div>
+
+      <div class="step-actions">
+        <span></span>
+        <button type="button" class="btn btn-primary hoverable next-step">Continue to Vehicle <span class="btn-arrow">→</span></button>
+      </div>
+    </fieldset>
+
+    <!-- ============ STEP 2 — VEHICLE SELECTION ============ -->
+    <fieldset class="form-step" data-step="2">
+      <div class="step-head">
+        <p class="eyebrow">Step 02</p>
+        <h2>Pick your BMW.</h2>
+      </div>
+
+      <div class="field-grid">
+        <div class="field">
+          <label for="car-line">Car line</label>
+          <select id="car-line" name="car_line" required>
+            <option value="" disabled selected>Select a car line</option>
+            <option value="i4-gran-coupe">i4 Gran Coupé</option>
+            <option value="ix-xdrive50">iX xDrive50</option>
+            <option value="m3-competition">M3 Competition</option>
+            <option value="m5">M5</option>
+            <option value="3-series">3 Series</option>
+            <option value="x5">X5</option>
+          </select>
+          <span class="field-error">Please choose a car line.</span>
+        </div>
+        <div class="field">
+          <label for="car-model">Model / trim</label>
+          <select id="car-model" name="car_model" required>
+            <option value="" disabled selected>Select a car line first</option>
+          </select>
+          <span class="field-error">Please choose a model.</span>
+        </div>
+        <div class="field">
+          <label for="color">Exterior colour</label>
+          <select id="color" name="exterior_color">
+            <option>Alpine White</option>
+            <option>Black Sapphire</option>
+            <option>Brooklyn Grey</option>
+            <option>Portimao Blue</option>
+            <option>Toronto Red</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="quantity">Quantity</label>
+          <input type="number" id="quantity" name="quantity" min="1" max="5" value="1">
+        </div>
+        <div class="field field-wide">
+          <label for="dealership">Preferred dealership / delivery city</label>
+          <input type="text" id="dealership" name="preferred_dealership" placeholder="e.g. Bhubaneswar Showroom">
+        </div>
+      </div>
+
+      <div class="selected-preview" id="selected-preview" hidden>
+        <span class="eyebrow" style="margin-bottom:8px;">Selected Vehicle</span>
+        <p id="selected-preview-text"></p>
+      </div>
+
+      <div class="step-actions">
+        <button type="button" class="btn btn-ghost hoverable prev-step">← Back</button>
+        <button type="button" class="btn btn-primary hoverable next-step">Continue to Financing <span class="btn-arrow">→</span></button>
+      </div>
+    </fieldset>
+
+    <!-- ============ STEP 3 — FINANCING ============ -->
+    <fieldset class="form-step" data-step="3">
+      <div class="step-head">
+        <p class="eyebrow">Step 03</p>
+        <h2>How would you like to pay?</h2>
+      </div>
+
+      <div class="pay-toggle" role="radiogroup">
+        <label class="pay-option hoverable">
+          <input type="radio" name="payment_method" value="loan" checked>
+          <span class="pay-option-card">
+            <span class="pay-option-title">Finance with a Loan</span>
+            <span class="pay-option-desc">Spread the cost with flexible monthly terms.</span>
+          </span>
+        </label>
+        <label class="pay-option hoverable">
+          <input type="radio" name="payment_method" value="direct_pay">
+          <span class="pay-option-card">
+            <span class="pay-option-title">Direct Pay</span>
+            <span class="pay-option-desc">Pay the full amount up front, no interest.</span>
+          </span>
+        </label>
+      </div>
+
+      <div class="field-grid financing-fields" id="loan-fields">
+        <div class="field">
+          <label for="loan-amount">Loan amount requested (USD)</label>
+          <input type="number" id="loan-amount" name="loan_amount" min="1000" step="500" placeholder="45000">
+        </div>
+        <div class="field">
+          <label for="down-payment">Down payment (USD)</label>
+          <input type="number" id="down-payment" name="down_payment" min="0" step="500" placeholder="10000">
+        </div>
+        <div class="field">
+          <label for="loan-term">Loan term</label>
+          <select id="loan-term" name="loan_term">
+            <option value="24">24 months</option>
+            <option value="36" selected>36 months</option>
+            <option value="48">48 months</option>
+            <option value="60">60 months</option>
+            <option value="72">72 months</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="employment-status">Employment status</label>
+          <select id="employment-status" name="employment_status">
+            <option>Employed</option>
+            <option>Self-employed</option>
+            <option>Student</option>
+            <option>Retired</option>
+          </select>
+        </div>
+        <div class="field field-wide">
+          <label for="annual-income">Approximate annual income (USD)</label>
+          <input type="number" id="annual-income" name="annual_income" min="0" step="1000" placeholder="80000">
+        </div>
+      </div>
+
+      <div class="field-grid financing-fields" id="direct-pay-fields" hidden>
+        <div class="field">
+          <label for="pay-method">Payment method</label>
+          <select id="pay-method" name="direct_pay_method">
+            <option>Bank Transfer</option>
+            <option>Wire Transfer</option>
+            <option>Certified Cheque</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="pay-date">Preferred payment date</label>
+          <input type="date" id="pay-date" name="preferred_payment_date">
+        </div>
+      </div>
+
+      <div class="step-actions">
+        <button type="button" class="btn btn-ghost hoverable prev-step">← Back</button>
+        <button type="button" class="btn btn-primary hoverable next-step">Continue to Review <span class="btn-arrow">→</span></button>
+      </div>
+    </fieldset>
+
+    <!-- ============ STEP 4 — REVIEW & SUBMIT ============ -->
+    <fieldset class="form-step" data-step="4">
+      <div class="step-head">
+        <p class="eyebrow">Step 04</p>
+        <h2>Review before you send it in.</h2>
+      </div>
+
+      <div class="review-grid" id="review-grid">
+        <!-- populated by JS -->
+      </div>
+
+      <div class="field consent-field">
+        <label class="checkbox-row hoverable">
+          <input type="checkbox" id="consent" name="consent" required>
+          <span>I confirm the details above are accurate and agree to be contacted about this order.</span>
+        </label>
+        <span class="field-error">Please confirm before submitting.</span>
+      </div>
+
+      <div class="step-actions">
+        <button type="button" class="btn btn-ghost hoverable prev-step">← Back</button>
+        <button type="submit" class="btn btn-primary hoverable" id="submit-btn">Submit Order <span class="btn-arrow">→</span></button>
+      </div>
+    </fieldset>
+
+  </form>
+
+  <div class="success-panel" id="success-panel" hidden>
+    <div class="success-badge">✓</div>
+    <h2>Order details ready to send.</h2>
+    <p>Your submission is being posted to <code>/user-details</code>. Our delivery team
+      will reach out at the phone number and email you provided to confirm next steps.</p>
+    <a href="models.html" class="btn btn-ghost hoverable">Back to Showroom</a>
+  </div>
+
+</section>
+
+<div class="m-stripe"></div>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-col footer-brand">
+        <a href="index.html" class="brand hoverable">
+          <svg class="brand-badge" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="22" stroke="#3d8bff" stroke-width="1.4"/>
+            <path d="M24 2 A22 22 0 0 1 24 46 Z" fill="#0b1a30"/>
+            <path d="M24 2 A22 22 0 0 0 24 46 Z" fill="#12151a"/>
+            <text x="24" y="29" text-anchor="middle" font-family="Rajdhani" font-weight="700" font-size="17" fill="#f3f3f5">BW</text>
+          </svg>
+          <span class="brand-word">BAVARIA<span>MOTOR</span></span>
+        </a>
+        <p>An independent showcase concept for the latest BMW-inspired lineup. Not affiliated with BMW AG.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Lineup</h4>
+        <ul>
+          <li><a href="models.html#electric">i-Series</a></li>
+          <li><a href="models.html#m-series">M Series</a></li>
+          <li><a href="models.html#sedans">Sedans &amp; SUVs</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Ownership</h4>
+        <ul>
+          <li><a href="purchase.html">Configure &amp; Buy</a></li>
+          <li><a href="purchase.html">Financing</a></li>
+          <li><a href="purchase.html">Trade-in</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="index.html#philosophy">Philosophy</a></li>
+          <li><a href="index.html#performance">Performance</a></li>
+          <li><a href="models.html">Showroom</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Bavaria Motor Showcase. Concept site for demonstration only.</span>
+      <span>Made for the road ahead.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="common.js"></script>
+<script src="purchase.js"></script>
+</body>
+</html>

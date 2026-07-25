@@ -1,0 +1,19 @@
+{
+  "name": "project7",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "SWASTIK MOHAPATRA",
+  "type": "commonjs",
+  "main": "express01.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon express01.js"
+  },
+  "dependencies": {
+    "body-parser": "^2.3.0",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "nodemon": "^3.1.14"
+  }
+}
