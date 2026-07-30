@@ -5,23 +5,22 @@ let model01 = require('../models/model01');
 exports.HomepageOrder = (request,response,next) =>{
   console.log(request.url , request.method);
 
-  let OrderDetails = model01.fetchAll();
-  console.log(OrderDetails);
+  model01.fetchAll((OrderDetails) => {
+    let FormattedOrders = OrderDetails.map(order =>{
+      let body = order.OrderDetails || order;
+      let detailedStrings = '';
+      if(body && typeof body === 'object')
+      {
+        detailedStrings = `FirstName : ${body.fname} , LastName : ${body.lname} , EmailAddress : ${body.email} , Model : ${body.model}`;
 
-  let FormattedOrders = OrderDetails.map(order =>{
-    let body = order.OrderDetails;
-    let detailedStrings = '';
-    if(body && typeof body === 'object')
-    {
-      detailedStrings = `FirstName : ${body.fname} , LastName : ${body.lname} , EmailAddress : ${body.email} , Model : ${body.model}`;
-
-    }
-    else{
-      detailedStrings = body || '';
-    };
-    return{OrderDetails: detailedStrings};
+      }
+      else{
+        detailedStrings = body || '';
+      };
+      return{OrderDetails: detailedStrings};
+    });
+    response.render('structure01',{registerdOrders: FormattedOrders});
   });
-  response.render('structure01',{registerdOrders: FormattedOrders});
 };
 
 exports.PostInquiryDetails = (request,response,next) =>{
