@@ -19,6 +19,7 @@ module.exports = class model01{
 
     save()
     {
+      this.id = Math.random().toString();
       model01.fetchAll((OrderDetails)=>{
         OrderDetails.push(this);
       let homePath = path.join(__dirname,'..','datas','Byer(S)Details.json');

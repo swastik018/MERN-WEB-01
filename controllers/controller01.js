@@ -1,4 +1,5 @@
 // const controller01 = require('../models/model01');
+const { response } = require('express');
 let model01 = require('../models/model01');
 
 
@@ -34,6 +35,13 @@ exports.PostInquiryDetails = (request,response,next) =>{
   console.log('--------------------');
 
   response.redirect('/');
+};
+
+exports.CardetailsID = (request,response,next) =>{
+  let CarID = request.params.CarID;
+  model01.fetchAll(CarDetails =>{
+    response.render('structure01',{CarDetails: CarDetails.filter(c => c.id === CarID),registerdOrders:[]});
+  });
 };
 
 exports.URLnotFound = (request, response) =>{
