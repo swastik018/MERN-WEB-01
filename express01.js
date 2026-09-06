@@ -1,3 +1,6 @@
+
+require('dotenv').config();
+
 let express = require('express');
 let bodyParser = require('body-parser');
 let handler = express();
@@ -15,7 +18,7 @@ handler.use(bodyParser.json());
 handler.use(express.static(__dirname));
 handler.use(router_for_express01);
 
-let PORT = 3021;
+let PORT = process.env.DB_PORT || 3021;
 handler.listen(PORT,()=>{
   console.log(`A NEW INQUIRY ARRIVES ON THE PORT: http://localhost:${PORT}`);
 })
