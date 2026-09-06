@@ -1,15 +1,15 @@
-const { error } = require('console');
-let fs = require('fs');
-let path = require('path');
+const database = require('../database01');
 let OrderDetails = [];
 
 module.exports = class model01{
-    constructor(fname,lname,email,model)
+    constructor(fname,lname,email,model,payment,consent)
     {
       this.fname = fname;
       this.lname = lname;
       this.email = email;
       this.model = model;
+      this.payment = payment || null;
+      this.consent = consent || null;
     };
 
     get OrderDetails()
@@ -19,31 +19,12 @@ module.exports = class model01{
 
     save()
     {
-      this.id = Math.random().toString();
-      model01.fetchAll((OrderDetails)=>{
-        OrderDetails.push(this);
-      let homePath = path.join(__dirname,'..','datas','Byer(S)Details.json');
-      fs.writeFile(homePath, JSON.stringify(OrderDetails), error =>{
-        if (error) {
-          console.log(`SOME ERROR OCCURRED WHILE FETCHING THE USERS DATA`,(error));
-        }
-      });
-      });
+      console.log('NEW INQUIRY FROM SITE->')
+     return database.execute('INSERT INTO bmwbyersdetails (fname, lname, email, model, payment, consent) VALUES (?, ?, ?, ?, ?, ?)', [this.fname, this.lname, this.email, this.model, this.payment || null, this.consent || null])
     };
 
-    static fetchAll(callback)
+    static fetchAll()
     {
-      let homePath = path.join(__dirname,'..','datas','Byer(S)Details.json');
-      fs.readFile(homePath,(error,data)=>{
-        console.log('File Read:',error,data);
-        if(!error)
-        {
-          OrderDetails = JSON.parse(data)
-        }
-       if (typeof callback === 'function')
-        {
-          callback(OrderDetails);
-        } 
-      });
+     return database.execute('SELECT * FROM bmwbyersdetails')
     }
 };

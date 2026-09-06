@@ -3,6 +3,8 @@ let bodyParser = require('body-parser');
 let handler = express();
 let path = require('path');
 let {router_for_express01} = require('./router_for_express01');
+const { error } = require('console');
+
 
 handler.set('view engine' , 'ejs');
 handler.set('views','views');
